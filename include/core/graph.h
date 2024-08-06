@@ -2,6 +2,7 @@
 #include "core/allocator.h"
 #include "core/operator.h"
 #include "core/tensor.h"
+#include <algorithm>
 
 namespace infini
 {
@@ -25,28 +26,16 @@ namespace infini
         TensorVec addTensor(const TensorVec &tensors);
         void removeOperator(Operator op)
         {
-            // auto it = std::find(ops.begin(), ops.end(), op);
-            for (auto it = ops.begin(); it != ops.end(); ++it)
-            {
-                if (*it == op)
-                {
-                    ops.erase(it);
-                    break;
-                }
-            }
+            auto it = std::find(ops.begin(), ops.end(), op);
+            if (it != ops.end())
+                ops.erase(it);
         }
 
         void removeTensor(Tensor tensor)
         {
-            // auto it = std::find(tensors.begin(), tensors.end(), tensor);
-            for (auto it = tensors.begin(); it != tensors.end(); ++it)
-            {
-                if (*it == tensor)
-                {
-                    tensors.erase(it);
-                    break;
-                }
-            }
+            auto it = std::find(tensors.begin(), tensors.end(), tensor);
+            if (it != tensors.end())
+                tensors.erase(it);
         }
 
         const TensorVec &getTensors() const { return tensors; }
